@@ -1,5 +1,7 @@
 FROM webdevops/php-nginx-dev:8.2
 
+LABEL org.opencontainers.image.source=https://github.com/php-base/php
+
 RUN apt update \
     # Core PHP modules
     && apt install -y --no-install-recommends libicu-dev libxml2-dev libjpeg62-turbo-dev libbz2-dev zlib1g-dev libc-client-dev libmagickwand-dev libxslt-dev libzip-dev mariadb-client libonig-dev \
