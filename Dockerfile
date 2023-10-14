@@ -6,10 +6,6 @@ RUN apt update \
     && docker-php-ext-install pdo_mysql intl mbstring soap bz2 zip bcmath gd xsl calendar opcache gettext sockets \
     # Install additional apps
     && apt install -y --no-install-recommends git nano less wget \
-    # Install npm and nodejs
-    && apt install -y dirmngr apt-transport-https lsb-release ca-certificates \
-    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    && apt install -y nodejs \
     # Install composer
     && curl -sS https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/local/bin --filename=composer
 
@@ -17,7 +13,8 @@ RUN apt update \
 RUN apt install -y ca-certificates curl gnupg \
     &&  mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
-    && NODE_MAJOR=18 && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    && NODE_MAJOR=18 \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
     && apt update \
     && apt install -y nodejs
 
