@@ -1,0 +1,47 @@
+name: Build and push image
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the all branches
+  push:
+    branches: [ '**' ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  VERSION: 8.2
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  publish:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Extract branch name
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
+        id: extract_branch
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Login to Github
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build and push image
+      - name: Build and push image
+        run: |
+          docker build . --tag ghcr.io/devob-cz/hello-docker-gcr-demo:${{ steps.extract_branch.outputs.branch }}-$VERSION
+          docker run ghcr.io/devob-cz/hello-docker-gcr-demo:${{ steps.extract_branch.outputs.branch }}-$VERSION
+          docker push ghcr.io/devob-cz/hello-docker-gcr-demo:${{ steps.extract_branch.outputs.branch }}-$VERSION
+
