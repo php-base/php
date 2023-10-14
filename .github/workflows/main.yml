@@ -41,6 +41,6 @@ jobs:
       # Build and push image
       - name: Build and push image
         run: |
-          docker build . --tag ghcr.io/devob-cz/php:${{ steps.extract_branch.outputs.branch }}-$VERSION
-          docker push ghcr.io/devob-cz/php:${{ steps.extract_branch.outputs.branch }}-$VERSION
+          docker build . --tag ghcr.io/php-base/php:${{ steps.extract_branch.outputs.branch }}-$VERSION
+          docker push ghcr.io/php-base/php:${{ steps.extract_branch.outputs.branch }}-$VERSION
 
