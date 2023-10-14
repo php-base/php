@@ -42,6 +42,5 @@ jobs:
       - name: Build and push image
         run: |
           docker build . --tag ghcr.io/devob-cz/hello-docker-gcr-demo:${{ steps.extract_branch.outputs.branch }}-$VERSION
-          docker run ghcr.io/devob-cz/hello-docker-gcr-demo:${{ steps.extract_branch.outputs.branch }}-$VERSION
           docker push ghcr.io/devob-cz/hello-docker-gcr-demo:${{ steps.extract_branch.outputs.branch }}-$VERSION
 
