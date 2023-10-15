@@ -1,6 +1,6 @@
-LABEL org.opencontainers.image.source=https://github.com/php-base/php
-
 FROM webdevops/php-nginx-dev:${PHP_VERSION} as base-php
+
+LABEL org.opencontainers.image.source=https://github.com/php-base/php
 
 RUN apt update \
     # Core PHP modules
