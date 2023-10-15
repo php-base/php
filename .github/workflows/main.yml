@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 8.2
+  PHP_VERSION: 8.2
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,6 +41,6 @@ jobs:
       # Build and push image
       - name: Build and push image
         run: |
-          docker build . --tag ghcr.io/php-base/php:${{ steps.extract_branch.outputs.branch }}-$VERSION
-          docker push ghcr.io/php-base/php:${{ steps.extract_branch.outputs.branch }}-$VERSION
+          docker build --build-arg="PHP_VERSION=$PHP_VERSION" . --tag ghcr.io/php-base/php:${{ steps.extract_branch.outputs.branch }}-$PHP_VERSION
+          docker push ghcr.io/php-base/php:${{ steps.extract_branch.outputs.branch }}-$PHP_VERSION
 
